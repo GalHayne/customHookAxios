@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import useShowUser from './hooks/useShowUser';
+import ChooseUser from "./cmp/ChooseUser";
+import UserCard from "./cmp/UserCard";
 
 function App() {
+
+  const [userId, setUserId] = useState("first option");
+  const { response, loading, error } = useShowUser(userId)
+  const [user, setUser] = useState(-1);
+
+  useEffect(() => {
+    setUser(response)
+  }, [response])
+
+
+  const handleChooseUserId = (id) => {
+    setUserId(id)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ChooseUser onChooseUserId={handleChooseUserId} />
+      <UserCard user={user} />
     </div>
   );
 }
