@@ -7,19 +7,29 @@ const useShowUser = (id) => {
     const [error, setError] = useState('');
     const [loading, setloading] = useState(true);
 
+    const timeOutDealy = Math.floor(Math.random() * (1200 - 100 + 1)) + 100;
+
+
     const fetchData = () => {
+        setloading(true)
         axios
             .get(`http://localhost:3001/users/${id}`)
             .then((res) => {
-                setResponse(res.data);
-                setError('');
+                setTimeout(() => {
+                    setResponse(res.data);
+                    setError('');
+                }, timeOutDealy);
             })
             .catch((err) => {
-                setError(err);
-                setResponse(null);
+                setTimeout(() => {
+                    setError(err);
+                    setResponse(null);
+                }, timeOutDealy);
             })
             .finally(() => {
-                setloading(false);
+                setTimeout(() => {
+                    setloading(false);
+                }, timeOutDealy);
             });
     };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import useShowUser from './hooks/useShowUser';
 import ChooseUser from "./cmp/ChooseUser";
 import UserCard from "./cmp/UserCard";
+import Loader from './cmp/Loading';
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
   return (
     <div>
       <ChooseUser onChooseUserId={handleChooseUserId} />
-      <UserCard user={user} />
+      {!loading && <UserCard user={user} />}
+      {loading && <Loader />}
     </div>
   );
 }
